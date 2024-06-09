@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, text
 import os
 
-db_connection_string = os.environ['DB_CONNECTION_STRING']
+'''db_connection_string = os.environ['DB_CONNECTION_STRING']
 
 engine = create_engine(
   db_connection_string, 
@@ -9,21 +9,22 @@ engine = create_engine(
     "ssl": {
       "ssl_ca": "/etc/ssl/cert.pem"
     }
-  })
+  })'''
 
+engine = create_engine("mysql+pymysql://sql12712853:Flkd54ejDX@sql12.freesqldatabase.com/sql12712853?charset=utf8mb4")
 
-def load_jobs_from_db():
+def load_books_from_db():
   with engine.connect() as conn:
-    result = conn.execute(text("select * from jobs"))
-    jobs = []
+    result = conn.execute(text("select * from books"))
+    books = []
     for row in result.all():
-      jobs.append(dict(row))
-    return jobs
+      books.append(dict(row))
+    return books
 
-def load_job_from_db(id):
+def load_book_from_db(id):
   with engine.connect() as conn:
     result = conn.execute(
-      text("SELECT * FROM jobs WHERE id = :val"),
+      text("SELECT * FROM books WHERE id = :val"),
       val=id
     )
     rows = result.all()
