@@ -30,9 +30,9 @@ def show_book_json(id):
   return jsonify(book)
 
 @app.route("/book/<id>/buy", methods=['post'])
-def apply_the_book(id):
+def buy_the_book(id):
   data = request.form
-  job = load_book_from_db(id)
+  book = load_book_from_db(id)
   add_application_to_db(id, data)
   return render_template('application_submitted.html', 
                          application=data,

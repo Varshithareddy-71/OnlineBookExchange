@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine, text
 import os
 
-'''db_connection_string = os.environ['DB_CONNECTION_STRING']
-
+db_connection_string = os.environ['DB_CONNECTION_STRING']
+'''
 engine = create_engine(
   db_connection_string, 
   connect_args={
@@ -11,7 +11,7 @@ engine = create_engine(
     }
   })'''
 
-engine = create_engine("mysql+pymysql://sql12712853:Flkd54ejDX@sql12.freesqldatabase.com/sql12712853?charset=utf8mb4")
+engine = create_engine(db_connection_string)
 
 def load_books_from_db():
   with engine.connect() as conn:
