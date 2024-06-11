@@ -7,9 +7,9 @@
     <div>
       <b>Genre:</b> {{book['category']}}
     </div>
-    {% if 'price' in job %}
+    {% if 'price' in book %}
     <div>
-      <b>Price:</b> {{book['price']}}
+      <b>Price (in Rs):</b> {{book['price']}}
     </div>
     {% endif %}
   </div>
@@ -18,3 +18,4 @@
   </div>
   
 </div>
+

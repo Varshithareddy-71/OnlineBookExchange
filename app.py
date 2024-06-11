@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from database import load_books_from_db, load_book_from_db, add_application_to_db
+from database import load_books_from_db, load_book_from_db, add_order_to_db
 
 app = Flask(__name__)
 
@@ -33,9 +33,9 @@ def show_book_json(id):
 def buy_the_book(id):
   data = request.form
   book = load_book_from_db(id)
-  add_application_to_db(id, data)
-  return render_template('application_submitted.html', 
-                         application=data,
+  add_order_to_db(id, data)
+  return render_template('order_placed.html', 
+                         book_order=data,
                          book=book)
 
 

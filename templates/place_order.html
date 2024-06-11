@@ -1,0 +1,26 @@
+<h4>Place Order</h4>
+<form action="/book/{{book['id']}}/buy" method="post">
+  <div class="mb-2">
+  <label>Full Name</label><br>
+  <input type="text" required name="full_name" placeholder="Bruce Wayne">
+  </div>
+
+  <div class="mb-2">
+  <label>Email</label><br>
+  <input type="email" required name="email" placeholder="bruce@wayne.com">
+  </div>
+
+
+  <div class="mb-2">
+    <label>Phone</label><br>
+    <input type="phone" required name="phone" placeholder="123-456-7890">
+  </div>
+
+  <div class="mb-2">
+    <label>Address</label><br>
+    <textarea name="address"></textarea>
+  </div>
+
+
+  <input type="submit">
+</form>

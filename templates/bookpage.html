@@ -12,22 +12,18 @@
         Online Book Exchange
       </h1>
       <h3 class="mb-2">{{book.title}}</h3>
-      <p class="lead mt-0">{{book.author}}</p>
-      <h4>Genre</h4>
+      <p class="lead mt-0">by {{book.author}}</p>
+      <h5>Genre</h5>
+      <p>{{book.category}}</p>
+      <h5>Description</h5>
       <ul>
-        {% for line in book.category.split("\n") %}
-         <li>{{line}}</li> 
-        {% endfor %}
-      </ul>
-      <h4>Description</h4>
-      <ol>
         {% for line in book.about.split("\n") %}
           <li>{{line}}</li>
         {% endfor %}
-      </ol>
-      <h4>Price</h4>
+      </ul>
+      <h5>Price (in Rs)</h5>
       <p>{{book.price}}</p>
-      {% include 'application_form.html' %}
+      {% include 'place_order.html' %}
     </div>
     {% include 'footer.html' %}
   </body>
