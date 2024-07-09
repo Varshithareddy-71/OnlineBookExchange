@@ -1,5 +1,5 @@
 <h4>Place Order</h4>
-<form action="/book/{{book['id']}}/buy" method="post">
+<form action="/{{userid}}/book/{{book['id']}}/buy" method="post">
   <div class="mb-2">
   <label>Full Name</label><br>
   <input type="text" required name="full_name" placeholder="Bruce Wayne">
@@ -13,7 +13,7 @@
 
   <div class="mb-2">
     <label>Phone</label><br>
-    <input type="phone" required name="phone" placeholder="123-456-7890">
+    <input type="phone" required name="phone" placeholder="+91xxxxxxxxxx">
   </div>
 
   <div class="mb-2">

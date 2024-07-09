@@ -1,9 +1,16 @@
 <nav class="navbar shadow-sm fixed-top bg-white">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href="/{{userid}}">
       <img src="https://e7.pngegg.com/pngimages/223/94/png-clipart-new-testament-chapter-by-chapter-old-testament-logo-book-book-blue-other-thumbnail.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
       OBE
     </a>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <a href="/{{userid}}/mybookorders" type="button" class="btn btn-outline-primary me-md-2" >Orders Received</a>
+      <a href="/{{userid}}/mybooks" type="button" class="btn btn-outline-primary me-md-2" >My Books</a>
+      <a href="/{{userid}}/addbook" type="button" class="btn btn-outline-primary me-md-2" >Add Book</a>
+      <a href="/logout" type="button" class="btn btn-outline-primary" >Logout</a>
+    </div>
+    
   </div>
 </nav>
 <div style="height:56px"></div>

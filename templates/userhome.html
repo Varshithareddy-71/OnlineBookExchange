@@ -5,21 +5,7 @@
     {% include 'bootstrap.html' %}
   </head>
   <body>
-    
-    <nav class="navbar shadow-sm fixed-top bg-white">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-          <img src="https://e7.pngegg.com/pngimages/223/94/png-clipart-new-testament-chapter-by-chapter-old-testament-logo-book-book-blue-other-thumbnail.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-          OBE
-        </a>
-        <div class="btn-group" role="group" aria-label="First group">
-        <a href="/signup" type="button" class="btn btn-outline-primary " >Signup</a>
-        <a href="/login" type="button" class="btn btn-outline-primary float-right align-middle" >Login</a>
-        </div
-      </div>
-    </nav>
-    <div style="height:56px"></div>
-    
+    {% include 'nav.html' %}
     {% include 'banner.html' %}
     <div class="container">
       <h1 class="text-center mt-2 mb-4">
@@ -35,26 +21,21 @@
         <img src="https://media.istockphoto.com/id/1328717786/vector/books-swap-exchange-or-crossing-vector-illustration-with-hand-gives-book-to-friend.jpg?s=612x612&w=0&k=20&c=5CQ5hVSDu6Kb9PkZBavYLao4e8u830Uq7RXNKfE4tk4=" style="height:320px;border-radius:4px;">
         </div>
       </div>
-      <h2 class="text-center mt-2 mb-4">Explore Books</h2>
+      
+      
+      <h2 class="text-center mt-5 mb-1">Explore Books</h2>
+      
+      <form class="form-inline text-center">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only"></label>
+          <input type="text" class="form-control" id="inputPassword2" placeholder="search">
+        <button type="submit" class="btn btn-primary mt-2 mb-4">Search</button>
+        </div>
+      </form>
+      
       <div>
         {% for book in books %}
-        <div class="border-bottom row" style="margin-bottom:16px;padding-bottom:8px;">
-          <div class="col-10">
-            <h4 
-              style="color:rgb(120,120,120); margin-bottom:4px;">
-              {{book['title']}}
-            </h4>
-            <div>
-              <b>Genre:</b> {{book['category']}}
-            </div>
-            {% if 'price' in book %}
-            <div>
-              <b>Price (in Rs):</b> {{book['price']}}
-            </div>
-            {% endif %}
-          </div>
-
-        </div>
+          {% include 'bookitem.html' %}
         {% endfor %}
       </div>
       <div class="text-center">

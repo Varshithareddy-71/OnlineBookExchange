@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Book - Online Book Exchange</title>
+    {% include 'bootstrap.html' %}
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    {% include 'banner.html' %}
+    <div class="container">
+      <h1 class="text-center mt-2 mb-4">
+        Online Book Exchange
+      </h1>
+      
+<h4>Add Book</h4>
+<form action="/{{userid}}/booksadded" method="post">
+  <div class="mb-2">
+  <label>Book Title</label><br>
+  <input type="text" required name="title" placeholder="book">
+  </div>
+
+  <div class="mb-2">
+  <label>Author</label><br>
+  <input type="text" required name="author" placeholder="xxxxx">
+  </div>
+
+
+  <div class="mb-2">
+    <label>Price</label><br>
+    <input type="number" required name="price" placeholder="0">
+  </div>
+
+  <div class="mb-2">
+    <label>About</label><br>
+    <textarea name="about"></textarea>
+  </div>
+
+  <div class="mb-2">
+    <label>Genre</label><br>
+    <input type="text" required name="category" placeholder="xxxxx">
+    </div>
+
+
+  <input type="submit">
+</form>
+
+  </div>
+  {% include 'footer.html' %}
+  </body>
+</html>

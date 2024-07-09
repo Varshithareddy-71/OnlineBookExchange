@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Online Book Exchange - Orders Received </title>
+    {% include 'bootstrap.html' %}
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    {% include 'banner.html' %}
+    <div class="container">
+
+      <h2 class="text-center mt-2 mb-4">Orders Received</h2>
+
+      <div>
+        {% for order in orders %}
+          {% include 'order.html' %}
+        {% endfor %}
+      </div>
+      <div class="text-center">
+      <a class="btn btn-primary btn-lg" href="mailto:varshithareddy1901@gmail.com?body=Name%20%3A%20%3Cyour%20name%3E%0D%0AQuery%20%3A%20%3Cmention%20the%20query%20you%20have%3E">Contact Us</a>
+      </div>
+    </div>
+    {% include 'footer.html' %}
+  </body>
+</html>

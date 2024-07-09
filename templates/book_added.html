@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Books</title>  
+    {% include 'bootstrap.html' %}
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    {% include 'banner.html' %}
+
+    <div class="container">
+      <h1 class="text-center mt-2 mb-4">
+        My Books
+      </h1>
+ 
+      
+      <div>
+        {% for book in books %}
+          {% include 'bookitem.html' %}
+        {% endfor %}
+      </div>
+
+    </div>
+    {% include 'footer.html' %}
+  </body>
+</html>
