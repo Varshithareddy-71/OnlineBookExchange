@@ -125,3 +125,10 @@ def load_owner_from_db(ownerid) :
     return None
   else:
     return dict(rows[0])
+
+def delete_book_from_db(id) :
+  connection.ping()
+  with connection.cursor() as cursor :
+    cursor.execute("DELETE FROM books WHERE id= %s",id)
+    cursor.execute("DELETE FROM book_order WHERE book_id= %s", id)
+  connection.commit()
