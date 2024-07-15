@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from database import load_books_from_db, load_book_from_db, add_book_to_db, add_order_to_db, add_user_to_db, load_user_from_db, load_owner_from_db, load_user_books_from_db, load_order_of_userbook, load_namedbooks_from_db
+from database import load_books_from_db, load_book_from_db, add_book_to_db, add_order_to_db, add_user_to_db, load_user_from_db, load_owner_from_db, load_user_books_from_db, load_order_of_userbook, load_namedbooks_from_db, delete_book_from_db
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib
 '''import pywhatkit'''
@@ -91,6 +91,11 @@ def msg_buyer(userid,buyerid,phone) :
     pywhatkit.sendwhatmsg(phone, 
                           "Hello...", 
                           22,42 )'''
+
+@app.route("/<userid>/<id>/delete")
+def delete_book(userid,id) :
+    delete_book_from_db(id)
+    return redirect(url_for('my_book_orders',userid=userid))
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup() :
