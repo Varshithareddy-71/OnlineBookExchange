@@ -2,7 +2,9 @@ from pymysql import cursors
 from sqlalchemy import create_engine, text, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, declarative_base
 import pymysql
+import os
 
+my_secret = os.environ['DB_CONNECTION_STRING']
 timeout = 10
 connection = pymysql.connect(
   charset="utf8mb4",
@@ -10,7 +12,7 @@ connection = pymysql.connect(
   cursorclass=pymysql.cursors.DictCursor,
   db="defaultdb",
   host="mysqldbproj-varshithareddy1901-1e6e.d.aivencloud.com",
-  password="AVNS_wHg6T2H_BJXqA7MpHho",
+  password=my_secret,
   read_timeout=timeout,
   port=14070,
   user="avnadmin",
