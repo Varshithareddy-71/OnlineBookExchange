@@ -34,6 +34,17 @@ def load_books_from_db():
   return books
 
 
+def load_namedbooks_from_db(book_name) :
+  connection.ping()
+  with connection.cursor() as cursor :
+    cursor.execute("select * from books where title = %s", book_name )
+    books = []
+    for row in cursor.fetchall():
+     books.append(dict(row))
+  connection.commit()
+  return books
+
+
 def load_user_books_from_db(userid):
   connection.ping()
   with connection.cursor() as cursor :

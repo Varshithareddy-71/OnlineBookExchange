@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from database import load_books_from_db, load_book_from_db, add_book_to_db, add_order_to_db, add_user_to_db, load_user_from_db, load_owner_from_db, load_user_books_from_db, load_order_of_userbook
+from database import load_books_from_db, load_book_from_db, add_book_to_db, add_order_to_db, add_user_to_db, load_user_from_db, load_owner_from_db, load_user_books_from_db, load_order_of_userbook, load_namedbooks_from_db
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib
 '''import pywhatkit'''
@@ -39,6 +39,12 @@ def show_book(id,userid):
 def show_book_json(id):
   book = load_book_from_db(id)
   return jsonify(book)
+
+@app.route("/<userid>/search", methods=['GET', 'POST'])
+def search_book(userid) :
+    book= request.form
+    books=load_namedbooks_from_db(book.get('book_name'))
+    return render_template('search.html', books=books, userid=userid)
 
 @app.route("/<userid>/book/<id>/buy", methods=['post'])
 def buy_the_book(id,userid):

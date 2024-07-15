@@ -6,25 +6,13 @@
   </head>
   <body>
     {% include 'nav.html' %}
-    {% include 'banner.html' %}
     <div class="container">
       <h1 class="text-center mt-2 mb-4">
         Online Book Exchange
       </h1>
-      <div class="row" style="margin-bottom:32px">
-        <div class="col-md-6">
-      <p class="lead">
-        Online Book Exchange provides a platform for users to register, log in, and interact with others to borrow or exchange books. By providing a user-friendly interface and efficient book management functionalities, the Online Book Exchange aims to enhance the accessibility and sharing of books within a community promoting the reuse and sharing of resources. We also contributes to the development of sustainable and eco-friendly practices by encouraging book exchanges instead of purchasing new ones.
-      </p>
-        </div>
-        <div class="d-none d-md-block col-md-6">
-        <img src="https://media.istockphoto.com/id/1328717786/vector/books-swap-exchange-or-crossing-vector-illustration-with-hand-gives-book-to-friend.jpg?s=612x612&w=0&k=20&c=5CQ5hVSDu6Kb9PkZBavYLao4e8u830Uq7RXNKfE4tk4=" style="height:320px;border-radius:4px;">
-        </div>
-      </div>
       
-      
-      <h2 class="text-center mt-5 mb-1">Explore Books</h2>
-      
+      <h2 class="text-center mt-5 mb-1">Search results</h2>
+
       <form action="/{{userid}}/search" method="post" class="form-inline text-center">
         <div class="form-group mx-sm-3 mb-2">
           <label for="inputPassword2" class="sr-only"></label>
@@ -32,7 +20,7 @@
         <button type="submit" class="btn btn-primary mt-2 mb-4">Search</button>
         </div>
       </form>
-      
+
       <div>
         {% for book in books %}
           {% include 'bookitem.html' %}
