@@ -1,2 +1,2 @@
-# jovian-careers-website
-A careers website for Jovian
+# Online Book Exchange
+A Book exchange platform 
