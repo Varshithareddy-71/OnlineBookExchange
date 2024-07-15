@@ -5,17 +5,21 @@ import pymysql
 import os
 
 my_secret = os.environ['DB_CONNECTION_STRING']
+my_secret2 = os.environ['mydb']
+my_secret3 = os.environ['myhost']
+my_secret4 = os.environ['myadmin']
+
 timeout = 10
 connection = pymysql.connect(
   charset="utf8mb4",
   connect_timeout=timeout,
   cursorclass=pymysql.cursors.DictCursor,
-  db="defaultdb",
-  host="mysqldbproj-varshithareddy1901-1e6e.d.aivencloud.com",
+  db=my_secret2 ,
+  host=my_secret3 ,
   password=my_secret,
   read_timeout=timeout,
   port=14070,
-  user="avnadmin",
+  user=my_secret4,
   write_timeout=timeout,
 )
 
