@@ -33,7 +33,7 @@
   <div class="col-2 padding-right:16px">
     <div class ="d-grid gap-2 d-md-flex justify-content-md-end">
       <a href="/{{userid}}/{{order['id']}}/delete" type="button" class="btn btn-outline-primary me-md-2" > Delete Book </a>
-      <a href="/{{userid}}/mybookorders/{{order['phone']}}" type="button" class="btn btn-outline-primary" >Contact Buyer</a>
+      <a href="mailto:{{order['email']}}?subject=Online%20Book%20Exchange%20-%20Reply%20for%20the%20order%20placed&body=Hey!%20Thankyou%20for%20placing%20an%20order%20for%20the%20book%0D%0A%3CMention%20the%20place%20and%20time%20to%20hand%20over%20the%20book%20and%20collect%20payment%3E" type="button" class="btn btn-outline-primary" >Contact Buyer</a>
     </div>
   </div>
 

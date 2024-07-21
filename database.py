@@ -115,6 +115,7 @@ def load_order_of_userbook(userid) :
   connection.commit()
   return orders
 
+
 def load_owner_from_db(ownerid) :
   connection.ping()
   with connection.cursor() as cursor :
@@ -125,6 +126,34 @@ def load_owner_from_db(ownerid) :
     return None
   else:
     return dict(rows[0])
+
+
+def load_user_wishlist(userid) :
+  connection.ping()
+  with connection.cursor() as cursor :
+    cursor.execute("SELECT * from wishlist where userid=%s", userid)
+    books = []
+    for row in cursor.fetchall():
+      books.append(dict(row))
+  connection.commit()
+  return books
+
+
+def add_book_to_wishlist(title, author, category, userid) :
+  connection.ping()
+  with connection.cursor() as cursor :
+    books=load_namedbooks_from_db(title)
+    query = "INSERT INTO wishlist (userid, title, author, category) VALUES (%s, %s, %s, %s)"
+    cursor.execute(query, (userid, title, author, category ))
+  connection.commit()
+
+
+def delete_book_from_wishlist(id) :
+  connection.ping()
+  with connection.cursor() as cursor :
+    cursor.execute("DELETE FROM wishlist WHERE id= %s",id)
+  connection.commit()
+
 
 def delete_book_from_db(id) :
   connection.ping()

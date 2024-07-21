@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Add Book - Online Book Exchange</title>
+    <title>Online Book Exchange - Add book to Wishlist</title>
     {% include 'bootstrap.html' %}
   </head>
   <body>
     {% include 'nav.html' %}
     {% include 'banner.html' %}
     <div class="container">
-      <h1 class="text-center mt-2 mb-4">
-        Add Book
-      </h1>
-      
-<form action="/{{userid}}/booksadded" method="post">
+      <h3 class="text-center mt-2 mb-4">
+        Sorry the book you are searching for is not found!!
+      </h3>
+      <h4 class="text-center mt-2 mb-4">
+        Want to add it to <b>Wishlist</b> ?
+      </h4>
+
+<form action="/{{userid}}/addedToWishlist" method="post">
   <div class="mb-2">
   <label>Book Title</label><br>
   <input type="text" required name="title" placeholder="book">
@@ -21,17 +24,6 @@
   <div class="mb-2">
   <label>Author</label><br>
   <input type="text" required name="author" placeholder="xxxxx">
-  </div>
-
-
-  <div class="mb-2">
-    <label>Price</label><br>
-    <input type="number" required name="price" placeholder="0">
-  </div>
-
-  <div class="mb-2">
-    <label>About</label><br>
-    <textarea name="about"></textarea>
   </div>
 
   <div class="mb-2">

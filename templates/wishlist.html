@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Online Book Exchange - Wishlist</title>
+    {% include 'bootstrap.html' %}
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    {% include 'banner.html' %}
+    <div class="container">
+      <h1 class="text-center mt-2 mb-4">
+        Wishlist
+      </h1>
+      
+      <div>
+        {% for book in books %}
+        
+        <div class="border-bottom row" style="margin-bottom:16px;padding-bottom:8px;">
+          <div class="col-10">
+            <h4 
+              style="color:rgb(120,120,120); margin-bottom:4px;">
+              {{book['title']}}
+            </h4>
+            <div>
+              <b>Author:</b> {{book['author']}}
+            </div>
+            <div>
+              <b>Genre:</b> {{book['category']}}
+            </div>
+            <div>
+              <b>Availability:</b> {{availability[book['id']]}}
+            </div>
+          </div>
+        
+          <div class="col-2 padding-right:16px">
+            <div class ="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/{{userid}}/{{book['id']}}/deletewish" type="button" class="btn btn-outline-primary me-md-2" > Delete from wishlist </a>
+            </div>
+          </div>
+        </div>
+        
+        {% endfor %}
+      </div>
+      
+    </div>
+    {% include 'footer.html' %}
+  </body>
+</html>

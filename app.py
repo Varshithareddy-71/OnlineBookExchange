@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from database import load_books_from_db, load_book_from_db, add_book_to_db, add_order_to_db, add_user_to_db, load_user_from_db, load_owner_from_db, load_user_books_from_db, load_order_of_userbook, load_namedbooks_from_db, delete_book_from_db
+from database import load_books_from_db, load_book_from_db, add_book_to_db, add_order_to_db, add_user_to_db, load_user_from_db, load_owner_from_db, load_user_books_from_db, load_order_of_userbook, load_namedbooks_from_db, delete_book_from_db, load_user_wishlist, add_book_to_wishlist, delete_book_from_wishlist
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib
 '''import pywhatkit'''
@@ -44,6 +44,8 @@ def show_book_json(id):
 def search_book(userid) :
     book= request.form
     books=load_namedbooks_from_db(book.get('book_name'))
+    if len(books)==0 :
+        return render_template('book_to_wishlist.html', userid=userid)
     return render_template('search.html', books=books, userid=userid)
 
 @app.route("/<userid>/book/<id>/buy", methods=['post'])
@@ -51,15 +53,14 @@ def buy_the_book(id,userid):
   data = request.form
   book = load_book_from_db(id)
   add_order_to_db(id, data.get('full_name'), data.get('email'), data.get('phone'), data.get('address'))
-  ''''
+  
   owner=load_owner_from_db(book['ownerid'])
   s = smtplib.SMTP('smtp.gmail.com', 587)
   s.starttls()
-  s.login("varshithareddy1901@gmail.com", "Ammulu@71")
+  s.login("varshithareddy1901@gmail.com", "kinaxovugdayccmp")
   message = "Dear "+owner['name']+",\n\n"+"You have a new order for the book "+book['title']+"\n\n"+"Please find the details below:\n\n"+"Full Name: "+data.get('full_name')+"\n\n"+"Email: "+data.get('email')+"\n\n"+"Phone: "+data.get('phone')+"\n\n"+"Address: "+data.get('address')+ "\n\n"+"Thank you."
   s.sendmail("varshithareddy1901@gmail.com", owner['email'], message)
   s.quit()
-  '''
   return render_template('order_placed.html',userid=userid, 
                          book_order=data,
                          book=book)
@@ -85,17 +86,47 @@ def my_books(userid) :
 def my_book_orders(userid) :
     orders=load_order_of_userbook(userid)   
     return render_template('book_orders.html',orders=orders, userid=userid)
-
-'''@app.route("/<userid>/mybookorders/<phone>")
+'''
+@app.route("/<userid>/mybookorders/<phone>")
 def msg_buyer(userid,buyerid,phone) :
-    pywhatkit.sendwhatmsg(phone, 
-                          "Hello...", 
-                          22,42 )'''
+    pywhatkit.sendwhatmsg_instantly(phone, 
+                          "Hello...")
+'''
 
 @app.route("/<userid>/<id>/delete")
 def delete_book(userid,id) :
     delete_book_from_db(id)
     return redirect(url_for('my_book_orders',userid=userid))
+
+@app.route("/<userid>/bookToWishlist")
+def book_details(userid):
+  return render_template('book_to_wishlist.html', 
+                         userid=userid)
+
+@app.route("/<userid>/addedToWishlist", methods=['post'])
+def added_to_wishlist(userid) :
+    data = request.form
+    add_book_to_wishlist(data.get('title'), data.get('author'), data.get('category'), userid)
+    return redirect(url_for('wishlist', userid=userid ))
+
+@app.route("/<userid>/wishlist")
+def wishlist(userid) :
+    wish=load_user_wishlist(userid)
+    avail={}
+    books=[]
+    for w in wish :
+        books.extend(load_namedbooks_from_db(w['title']))
+        if(len(books)==0) :
+            avail[w['id']]="Not Available"
+        else :
+            avail[w['id']]="Available"
+        books.clear()
+    return render_template('wishlist.html', userid=userid, books=wish, availability=avail)
+
+@app.route("/<userid>/<id>/deletewish")
+def delete_from_wishlist(userid,id) :
+    delete_book_from_wishlist(id)
+    return redirect(url_for('wishlist',userid=userid))
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup() :
