@@ -68,11 +68,11 @@ def load_book_from_db(id):
     return dict(rows[0])
 
 
-def add_book_to_db(title, author, price, about, category, ownerid) :
+def add_book_to_db(title, author, price, about, category, ownerid, image, backimage) :
   connection.ping()
   with connection.cursor() as cursor :
-    query = "INSERT INTO books (title, author, price, about, category, ownerid) VALUES (%s, %s, %s, %s, %s, %s)"
-    cursor.execute(query, (title, author, price, about, category, ownerid))
+    query = "INSERT INTO books (title, author, price, about, category, ownerid, image, backimage) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    cursor.execute(query, (title, author, price, about, category, ownerid, image, backimage))
   connection.commit()
 
 

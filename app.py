@@ -2,11 +2,16 @@ from flask import Flask, render_template, jsonify, request, session, redirect, u
 from flask_sqlalchemy import SQLAlchemy
 from database import load_books_from_db, load_book_from_db, add_book_to_db, add_order_to_db, add_user_to_db, load_user_from_db, load_owner_from_db, load_user_books_from_db, load_order_of_userbook, load_namedbooks_from_db, delete_book_from_db, load_user_wishlist, add_book_to_wishlist, delete_book_from_wishlist
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+import urllib.request
 import smtplib
+import os
 '''import pywhatkit'''
 
 app = Flask(__name__)
 app.secret_key = 'a_b_c_d_e_f'
+app.config['UPLOAD_FOLDER'] = 'static/'
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 @app.route("/")
 def my_book_exchange():
@@ -70,12 +75,33 @@ def enter_book_details(userid):
   return render_template('add_book.html', 
                          userid=userid)
     
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route("/<userid>/booksadded", methods=['post'])
 def add_the_book(userid) :
     data = request.form
-    add_book_to_db(data.get('title'), data.get('author'), data.get('price'), data.get('about'), data.get('category'), userid)
-    books1 = load_user_books_from_db(userid)
-    return render_template('book_added.html', books=books1, userid=userid)
+    if 'file' not in request.files or 'back' not in request.files :
+        flash('No file part')
+        return redirect(request.url)
+    file = request.files['file']
+    back = request.files['back']
+    if file.filename == '' or back.filename == '' :
+        flash('No image selected for uploading')
+        return redirect(request.url)
+    if file and allowed_file(file.filename) and back and allowed_file(back.filename) :
+        filename = secure_filename(file.filename)
+        filename2 = secure_filename(back.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        back.save(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
+        add_book_to_db(data.get('title'), data.get('author'), data.get('price'), data.get('about'), data.get('category'), userid, filename, filename2)
+        books1 = load_user_books_from_db(userid)
+        return render_template('book_added.html', books=books1, userid=userid)    
+    else:
+        flash('Allowed image types are - png, jpg, jpeg, gif')
+        return redirect(request.url)
+
 
 @app.route("/<userid>/mybooks")
 def my_books(userid) :
@@ -154,7 +180,6 @@ def login():
         if check_password_hash(user['password'], password):
             session['user_id'] = user['userid']
             session['username'] = user['name']
-            flash('Login successful!', 'success')
             return redirect(url_for('profile'))
         else:
             flash('Login failed! Check your credentials.', 'danger')
@@ -174,7 +199,6 @@ def profile():
 def logout():
     session.pop('user_id', None)
     session.pop('username', None)
-    flash('You have been logged out.', 'info')
     return my_book_exchange()
 
 

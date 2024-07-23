@@ -11,18 +11,33 @@
       <h1 class="text-center mt-2 mb-4">
         Online Book Exchange
       </h1>
+
+      <div class="row" style="margin-bottom:32px">
+        <div class="col-md-6">
       <h3 class="mb-2">{{book.title}}</h3>
       <p class="lead mt-0">by {{book.author}}</p>
       <h5>Genre</h5>
       <p>{{book.category}}</p>
-      <h5>Description</h5>
-      <ul>
-        {% for line in book.about.split("\n") %}
-          <li>{{line}}</li>
-        {% endfor %}
-      </ul>
-      <h5>Price (in Rs)</h5>
-      <p>{{book.price}}</p>
+
+          <h5>Description</h5>
+          <ul>
+            {% for line in book.about.split("\n") %}
+              <li>{{line}}</li>
+            {% endfor %}
+          </ul>
+
+          <h5>Price (in Rs)</h5>
+          <p>{{book.price}}</p>
+        </div>
+        <div class="d-none d-md-block col-md-6">
+        <img src="/static/{{book.image}}" class="img-fluid" style="height:360px;border-radius:4px;">
+        <img src="/static/{{book.backimage}}" class="img-fluid" style="height:360px;border-radius:4px;">
+        </div>
+      </div>
+      
+          
+
+                
       {% include 'place_order.html' %}
     </div>
     {% include 'footer.html' %}

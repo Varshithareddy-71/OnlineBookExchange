@@ -12,7 +12,7 @@
         Add Book
       </h1>
       
-<form action="/{{userid}}/booksadded" method="post">
+<form action="/{{userid}}/booksadded" method="post" enctype="multipart/form-data">
   <div class="mb-2">
   <label>Book Title</label><br>
   <input type="text" required name="title" placeholder="book">
@@ -37,8 +37,29 @@
   <div class="mb-2">
     <label>Genre</label><br>
     <input type="text" required name="category" placeholder="xxxxx">
-    </div>
+  </div>
 
+  <p>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+  </p>
+  
+  <div class="mb-2">
+    <label>Book Image1</label><br>
+    <input type="file" name="file" class="form-control" autocomplete="off" required>
+  </div>
+
+  <div class="mb-2">
+    <label>Book Image2</label><br>
+    <input type="file" name="back" class="form-control" autocomplete="off" required>
+  </div>
 
   <input type="submit">
 </form>
