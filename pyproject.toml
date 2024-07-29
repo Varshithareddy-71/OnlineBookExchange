@@ -8,6 +8,8 @@ authors = ["aakashns <<>>"]
 python = "^3.8"
 Flask = "^2.1.2"
 SQLAlchemy = "^1.4.39"
+pymysql = "^1.1.1"
+werkzeug = "^3.0.3"
 
 [tool.poetry.dev-dependencies]
 
