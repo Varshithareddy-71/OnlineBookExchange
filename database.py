@@ -1,6 +1,3 @@
-from pymysql import cursors
-from sqlalchemy import create_engine, text, Column, Integer, String
-from sqlalchemy.orm import sessionmaker, declarative_base
 import pymysql
 import os
 

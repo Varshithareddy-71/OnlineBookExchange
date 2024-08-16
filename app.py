@@ -1,12 +1,9 @@
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
 from database import load_books_from_db, load_book_from_db, add_book_to_db, add_order_to_db, add_user_to_db, load_user_from_db, load_owner_from_db, load_user_books_from_db, load_order_of_userbook, load_namedbooks_from_db, delete_book_from_db, load_user_wishlist, add_book_to_wishlist, delete_book_from_wishlist
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-import urllib.request
 import smtplib
 import os
-'''import pywhatkit'''
 
 app = Flask(__name__)
 app.secret_key = 'a_b_c_d_e_f'
@@ -112,12 +109,6 @@ def my_books(userid) :
 def my_book_orders(userid) :
     orders=load_order_of_userbook(userid)   
     return render_template('book_orders.html',orders=orders, userid=userid)
-'''
-@app.route("/<userid>/mybookorders/<phone>")
-def msg_buyer(userid,buyerid,phone) :
-    pywhatkit.sendwhatmsg_instantly(phone, 
-                          "Hello...")
-'''
 
 @app.route("/<userid>/<id>/delete")
 def delete_book(userid,id) :
